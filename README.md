@@ -1,4 +1,5 @@
 # racket_neural_net_from_keras
+
 Use trained model produced by Keras in a Racket Scheme app
 
 Shapes and output CSV files in model_data directory:
@@ -11,6 +12,10 @@ Shapes and output CSV files in model_data directory:
     b3 (1, )      b3.csv
 
 The first two layers use a RELU and the last (third) layer uses a Sigmoid
+
+## install dependencies
+
+        raco pkg install csv-reader
 
 ## Keras Deep Neural Network using Breast Cancer Data with Explanation of Predictions
 
