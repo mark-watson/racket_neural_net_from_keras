@@ -2,6 +2,7 @@
 
 (require math racket/trace)
 (require csv)
+(require racket/pretty)
 
 (define (XXrow-string->numbers x)
   (list->array (map string->number x)))
@@ -32,23 +33,44 @@
 (define (matrix-mul m n)
   (matrix-map * m n))
 
+(define (file->matrix fname)
+  (let* ((x (read-csv fname))
+         (y (array-string-->number x)))
+    (list*->matrix y)))
+        
+(define w1 (file->matrix "model_data/w1.csv"))
+(define w2 (file->matrix "model_data/w2.csv"))
+(define w3 (file->matrix "model_data/w3.csv"))
+(define b1 (file->matrix "model_data/b1.csv"))
+(define b2 (file->matrix "model_data/b2.csv"))
+(define b3 (file->matrix "model_data/b3.csv"))
 
-(define d (read-csv "model_data/tiny.csv"))
+(display "** weights and biases loaded **")
 
-(define d2 (array-string-->number d))
+(print "\nb2:\n")
 
-(print d2)
+(pretty-print b2)
 
-(define mm (list*->matrix d2))
+(define m2 (matrix* w2 w2))  ;; dot product
 
-(print "\nmm:\n")
+(display "\nm2:\n")
+(display m2)
 
-(print mm)
 
-(define m2 (matrix-mul mm mm))
+(let-values ([(nrows ncols) (matrix-shape w2)])
+  (display "shape of w2:\n")
+  (pretty-print nrows)
+  (pretty-print ncols))
 
-(print "\nm2:\n")
-(print m2)
+
+(let-values ([(nrows ncols) (matrix-shape b1)])
+  (display "shape of b1:\n")
+  (pretty-print nrows)
+  (pretty-print ncols))
+
+;;(define r1 (matrix-sigmoid m2))
+;;(display "\nr1:\n")
+;;(pretty-print r1)
 
 ;;(define d2-m (matrix d2))
 
