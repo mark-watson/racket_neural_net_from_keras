@@ -62,6 +62,8 @@
   (pretty-print nrows)
   (pretty-print ncols))
 
+(define (drop-last l) (reverse (cdr (reverse l))))
+
 (define (evaluate inputs)
   1)
 
@@ -72,6 +74,17 @@
     (pretty-print samples)
     (pretty-print (list-ref samples 0)) ; first row
     (pretty-print (list-ref samples 1)) ; second row
+    (pretty-print (list (drop-last (list-ref samples 0))))
+    (pretty-print (list*->matrix (list (drop-last (list-ref samples 0)))))
+    (let* ([fs (list-ref samples 5)]
+           [xs (drop-last fs)]
+           [y (last fs)]
+           [x (list*->matrix (list xs))]
+           [layer1 (matrix-relu (matrix* x w1))]
+           [layer2 (matrix-relu (matrix* layer1 w2))]
+           [outputs (matrix-sigmoid (matrix* layer2 w3))])
+      (pretty-print
+       outputs))
   ))
     
 (tests)
