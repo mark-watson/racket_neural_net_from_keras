@@ -4,12 +4,6 @@
 (require csv)
 (require racket/pretty)
 
-(define (XXrow-string->numbers x)
-  (list->array (map string->number x)))
-
-(define (XXarray-string-->number m)
-  (list->array (map row-string->numbers m)))
-
 (define (row-string->numbers x)
   (map string->number x))
 
@@ -47,15 +41,15 @@
 
 (display "** weights and biases loaded **")
 
-(print "\nb2:\n")
+;;(print "\nb2:\n")
 
-(pretty-print b2)
+;;(pretty-print b2)
 
-(define m2 (matrix* w2 w2))  ;; dot product
 
-(display "\nm2:\n")
-(display m2)
+;(define m2 (matrix* A B))  ;; dot product 2x2
 
+;(display "\nm2:\n")
+;(display m2)
 
 (let-values ([(nrows ncols) (matrix-shape w2)])
   (display "shape of w2:\n")
@@ -68,10 +62,16 @@
   (pretty-print nrows)
   (pretty-print ncols))
 
-;;(define r1 (matrix-sigmoid m2))
-;;(display "\nr1:\n")
-;;(pretty-print r1)
+(define (evaluate inputs)
+  1)
 
-;;(define d2-m (matrix d2))
-
-;;(print d2-m)
+(define (tests)
+  (let ([samples
+          (array->list*
+           (file->matrix "model_data/testing.csv"))])
+    (pretty-print samples)
+    (pretty-print (list-ref samples 0)) ; first row
+    (pretty-print (list-ref samples 1)) ; second row
+  ))
+    
+(tests)
