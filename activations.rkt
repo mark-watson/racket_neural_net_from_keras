@@ -11,7 +11,7 @@
   (map row-string->numbers m))
 
 (define (sigmoid x)
-  (/ (+ 1.0 (exp (- x)))))
+  (/ 1.0 (+ 1.0 (exp (- x)))))
 
 (define (matrix-sigmoid m)
   (matrix-map sigmoid m))
@@ -27,14 +27,11 @@
 (define (matrix-mul m n)
   (matrix-map * m n))
 
-(define (matrix-add m n)
-  (matrix-map + m n))
-
 (define (file->matrix fname)
   (let* ((x (read-csv fname))
          (y (array-string-->number x)))
     (list*->matrix y)))
-        
+
 (define w1 (file->matrix "model_data/w1.csv"))
 (define w2 (file->matrix "model_data/w2.csv"))
 (define w3 (file->matrix "model_data/w3.csv"))
@@ -68,15 +65,23 @@
 (define (evaluate x y)
   (let* ([layer1 (matrix-relu (matrix* x w1))]
          [layer2 (matrix-relu (matrix* layer1 w2))]
-         [outputs (matrix-sigmoid (matrix* layer2 w3))])
+         [outputs (matrix-sigmoid (matrix* layer2 w3))]
+         [yhat (first (first (array->list* outputs)))])
     (pretty-print outputs)
-    (pretty-print y)))
+    (pretty-print yhat)
+    (pretty-print y)
+    (if
+     (= y (if (> yhat 0.9) 1 0))
+     0
+     1)))
 
 
 (define (tests)
-  (let ([samples
+  (let ([good 0]
+        [bad 0]
+        [samples
           (array->list*
-           (file->matrix "model_data/testing.csv"))])
+           (file->matrix "model_data/test.csv"))])
     (pretty-print samples)
     (for ([fs samples])
       ;;(pretty-print fs)
@@ -85,6 +90,12 @@
       (let* ([xs (drop-last fs)]
              [y (last fs)]
              [x (list*->matrix (list xs))])
-        (evaluate x y)))))
+        
+        (if (= (evaluate x y) y)
+            (set! good (+ 1 good))
+            (set! bad (+ 1 bad)))))
+     (display (list "number correct:" good))
+     (display (list "number wrong:" bad))
+     (display (list "accuracy:" (/ (* 100.0 good) (+ good bad))))))
     
 (tests)
