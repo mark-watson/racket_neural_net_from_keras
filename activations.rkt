@@ -55,25 +55,15 @@
 
 (define (drop-last l) (reverse (cdr (reverse l))))
 
-(define (evaluateXXX x y)
-  (let* ([layer1 (matrix-relu (matrix* x w1))]
-         [layer2 (matrix-relu (matrix* layer1 w2))]
-         [outputs (matrix-sigmoid (matrix* layer2 w3))])
-    (pretty-print outputs)
-    (pretty-print y)))
-
 (define (evaluate x y)
   (let* ([layer1 (matrix-relu (matrix* x w1))]
          [layer2 (matrix-relu (matrix* layer1 w2))]
          [outputs (matrix-sigmoid (matrix* layer2 w3))]
          [yhat (first (first (array->list* outputs)))])
-    (pretty-print outputs)
-    (pretty-print yhat)
-    (pretty-print y)
-    (if
-     (= y (if (> yhat 0.9) 1 0))
-     0
-     1)))
+    ;;(pretty-print outputs)
+    ;;(pretty-print (list "yhat" yhat))
+    ;;(pretty-print (list "y" y))
+    (if (> yhat 0.6) 1 0)))
 
 
 (define (tests)
@@ -82,7 +72,7 @@
         [samples
           (array->list*
            (file->matrix "model_data/test.csv"))])
-    (pretty-print samples)
+    ;;(pretty-print samples)
     (for ([fs samples])
       ;;(pretty-print fs)
       ;;(pretty-print (list (drop-last fs)))
@@ -94,8 +84,8 @@
         (if (= (evaluate x y) y)
             (set! good (+ 1 good))
             (set! bad (+ 1 bad)))))
-     (display (list "number correct:" good))
-     (display (list "number wrong:" bad))
-     (display (list "accuracy:" (/ (* 100.0 good) (+ good bad))))))
+    (display (list "number correct:" good))
+    (display (list "number wrong:" bad))
+    (display (list "accuracy:" (/ (* 100.0 good) (+ good bad))))))
     
 (tests)

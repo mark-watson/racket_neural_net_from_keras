@@ -1,5 +1,7 @@
 # racket_neural_net_from_keras
 
+NOTE ****  try scaling all inputs to [0,1], re-run Keras an save weights. Also rescale test data. -- figure out why accuracy is only 74%
+
 Use trained model produced by Keras in a Racket Scheme app
 
 Shapes and output CSV files in model_data directory:
