@@ -5,11 +5,10 @@ Use trained model produced by Keras in a Racket Scheme app
 Shapes and output CSV files in model_data directory:
 
     w1 (9, 64)    w1.csv
-    b1 (64, )     b1.csv
     w2 (64, 64)   w2.csv
-    b2 (64, )     b2.csv
     w3 (64, 1)    w3.csv
-    b3 (1, )      b3.csv
+
+Note: biases removed.
 
 The first two layers use a RELU and the last (third) layer uses a Sigmoid
 
