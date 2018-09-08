@@ -1,5 +1,7 @@
 #lang racket
 
+;; Copyright 2018 by Makr Watson all rights reserved. Released under Apache 2 license.
+
 (require math racket/trace)
 (require csv)
 (require racket/pretty)
@@ -36,17 +38,7 @@
 (define w2 (file->matrix "model_data/w2.csv"))
 (define w3 (file->matrix "model_data/w3.csv"))
 
-(display "** weights and biases loaded **")
-
-;;(print "\nb2:\n")
-
-;;(pretty-print b2)
-
-
-;(define m2 (matrix* A B))  ;; dot product 2x2
-
-;(display "\nm2:\n")
-;(display m2)
+(display "** weights loaded **")
 
 (let-values ([(nrows ncols) (matrix-shape w2)])
   (display "shape of w2:\n")
@@ -60,9 +52,6 @@
          [layer2 (matrix-relu (matrix* layer1 w2))]
          [outputs (matrix-sigmoid (matrix* layer2 w3))]
          [yhat (first (first (array->list* outputs)))])
-    ;;(pretty-print outputs)
-    ;;(pretty-print (list "yhat" yhat))
-    ;;(pretty-print (list "y" y))
     (if (> yhat 0.6) 1 0)))
 
 
@@ -72,15 +61,10 @@
         [samples
           (array->list*
            (file->matrix "model_data/test.csv"))])
-    ;;(pretty-print samples)
     (for ([fs samples])
-      ;;(pretty-print fs)
-      ;;(pretty-print (list (drop-last fs)))
-      ;;(pretty-print (list*->matrix (list (drop-last fs))))
       (let* ([xs (drop-last fs)]
              [y (last fs)]
              [x (list*->matrix (list xs))])
-        
         (if (= (evaluate x y) y)
             (set! good (+ 1 good))
             (set! bad (+ 1 bad)))))
