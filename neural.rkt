@@ -1,6 +1,6 @@
 #lang racket
 
-;; Copyright 2018 by Makr Watson all rights reserved. Released under Apache 2 license.
+;; Copyright 2018 by Mark Watson all rights reserved. Released under Apache 2 license.
 
 (require math racket/trace)
 (require csv)

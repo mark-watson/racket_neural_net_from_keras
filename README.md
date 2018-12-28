@@ -16,6 +16,10 @@ The first two layers use a RELU and the last (third) layer uses a Sigmoid
 
         raco pkg install csv-reader
 
+## run
+
+        drracket neural.rkt
+        
 ## Keras Deep Neural Network using Breast Cancer Data with Explanation of Predictions
 
 This model is trained on 497 training examples and is tested for accuracy on 151 different testing examples. The accuracy is about 97%.
