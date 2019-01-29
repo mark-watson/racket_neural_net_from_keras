@@ -14,7 +14,11 @@ The first two layers use a RELU and the last (third) layer uses a Sigmoid
 
 ## install dependencies
 
+for old Racket 6.x:
         raco pkg install csv-reader
+
+for new Racket with Chez backend:
+        raco pkg install csv
 
 ## run
 
