@@ -70,8 +70,8 @@
         (if (= (evaluate x y) y)
             (set! good (+ 1 good))
             (set! bad (+ 1 bad)))))
-    (display (list "number correct:" good))  (newline)
-    (display (list "number wrong:" bad))     (newline)
-    (display (list "accuracy:" (/ (* 100.0 good) (+ good bad)))) (newline)))
+    (display "number correct: ") (display good)  (newline)
+    (display "number wrong:   ") (display bad)    (newline)
+    (display "accuracy:       ") (display (/ (* 100.0 good) (+ good bad))) (newline)))
     
 (tests)
