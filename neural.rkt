@@ -41,9 +41,11 @@
 (display "** weights loaded **")
 
 (let-values ([(nrows ncols) (matrix-shape w2)])
-  (display "shape of w2:\n")
-  (pretty-print nrows)
-  (pretty-print ncols))
+  (display "shape of w2 :")
+  (display nrows)
+  (display " ")
+  (display ncols)
+  (newline))
 
 (define (drop-last l) (reverse (cdr (reverse l))))
 
@@ -68,8 +70,8 @@
         (if (= (evaluate x y) y)
             (set! good (+ 1 good))
             (set! bad (+ 1 bad)))))
-    (display (list "number correct:" good))
-    (display (list "number wrong:" bad))
-    (display (list "accuracy:" (/ (* 100.0 good) (+ good bad))))))
+    (display (list "number correct:" good))  (newline)
+    (display (list "number wrong:" bad))     (newline)
+    (display (list "accuracy:" (/ (* 100.0 good) (+ good bad)))) (newline)))
     
 (tests)
