@@ -12,6 +12,10 @@ Note: biases removed.
 
 The first two layers use a RELU and the last (third) layer uses a Sigmoid
 
+## Donate on Patreon to support all of my projects
+
+Please visit [https://www.patreon.com/markwatson](https://www.patreon.com/markwatson) and sign up to donate $1/month
+
 ## install dependencies
 
 for old Racket 6.x:
